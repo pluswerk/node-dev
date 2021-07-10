@@ -1,0 +1,49 @@
+name: ci
+
+on:
+  schedule:
+    # build every tuesday
+    - cron: '0 10 * * 2'
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - node: 12
+            tags: "pluswerk/node-dev:12"
+          - node: 14
+            tags: "pluswerk/node-dev:lts,pluswerk/node-dev:14"
+          - node: 16
+            tags: "pluswerk/node-dev,pluswerk/node-dev:current,pluswerk/node-dev:16"
+    steps:
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push ${{ matrix.node }}
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ matrix.tags }}
+          build-args: FROM=node:${{ matrix.node }}
+      -
+        name: Image digest
+        run: |
+          echo ${{ steps.docker_build.outputs.digest }}
+          echo ${{ steps.docker_build_dev.outputs.digest }}
