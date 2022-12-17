@@ -6,7 +6,7 @@ ENV PATH=$PATH:./node_modules/.bin
 RUN apt-get update && \
   apt-get install -y sudo vim nano less tree bash-completion mariadb-client iputils-ping sshpass && \
   usermod -aG sudo node && \
-  echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+  echo "node ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
   rm -rf /var/lib/apt/lists/*
 
 COPY .additional_bashrc.sh /home/node/.additional_bashrc.sh
