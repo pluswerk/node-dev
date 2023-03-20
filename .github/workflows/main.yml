@@ -51,6 +51,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
 #           push: ${{ github.ref == 'refs/heads/main' }}
+          push: true
           tags: ${{ matrix.tags }}
           build-args: FROM=node:${{ matrix.node }}
           platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
