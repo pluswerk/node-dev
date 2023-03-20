@@ -4,7 +4,7 @@ NODE-DEV is a small package that adds some tools to ease the development inside 
 
 It is derived from [pluswerk/php-dev](https://github.com/pluswerk/php-dev/) and includes `git`, `ssh`, `vim`, `nano`, `ping`, `mysql`, `mysqldump`, and autocomplete for `git`
 
-It comes with versions for: `current/19`, `lts/18`, `17`, `16`, `15`, `14`, `13` and `12`.
+It comes with versions for: `current`/`19`, `lts`/`18`, `17`, `16`, `15`, `14`, `13` and `12`.
 
 # example docker-compose.yml
 ````yml
@@ -12,7 +12,7 @@ version: '3.5'
 
 services:
   node:
-    image: pluswerk/node-dev:lts
+    image: ghcr.io/pluswerk/node-dev:lts
     volumes:
       - ./:/app
     working_dir: /app
@@ -30,4 +30,4 @@ networks:
 
 ````
 
-View it on [Docker Hub](https://hub.docker.com/r/pluswerk/node-dev).
+View all tags: [Githuhb Container Registry](https://github.com/pluswerk/node-dev/pkgs/container/node-dev/versions?filters%5Bversion_type%5D=tagged).
