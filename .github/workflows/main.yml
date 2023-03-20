@@ -5,9 +5,7 @@ on:
     # build every first of the month
     - cron: '0 0 1 * *'
   push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -53,7 +51,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           registry: ghcr.io
-#           push: ${{ github.ref == 'refs/heads/main' }}
+          push: ${{ github.ref == 'refs/heads/main' }}
           tags: ${{ matrix.tags }}
           build-args: FROM=node:${{ matrix.node }}
           platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
