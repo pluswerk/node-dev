@@ -16,21 +16,21 @@ jobs:
       matrix:
         include:
           - node: 12
-            tags: "ghcr.io/pluswerk/node-dev:12"
+            tags: "ghcr.io/pluswerk/node-dev:12,pluswerk/node-dev:12"
           - node: 13
-            tags: "ghcr.io/pluswerk/node-dev:13"
+            tags: "ghcr.io/pluswerk/node-dev:13,pluswerk/node-dev:13"
           - node: 14
-            tags: "ghcr.io/pluswerk/node-dev:14"
+            tags: "ghcr.io/pluswerk/node-dev:14,pluswerk/node-dev:14"
           - node: 15
-            tags: "ghcr.io/pluswerk/node-dev:15"
+            tags: "ghcr.io/pluswerk/node-dev:15,pluswerk/node-dev:15"
           - node: 16
-            tags: "ghcr.io/pluswerk/node-dev:16"
+            tags: "ghcr.io/pluswerk/node-dev:16,pluswerk/node-dev:16"
           - node: 17
-            tags: "ghcr.io/pluswerk/node-dev:17"
+            tags: "ghcr.io/pluswerk/node-dev:17,pluswerk/node-dev:17"
           - node: 18
-            tags: "ghcr.io/pluswerk/node-dev:lts,ghcr.io/pluswerk/node-dev:18"
+            tags: "ghcr.io/pluswerk/node-dev:lts,ghcr.io/pluswerk/node-dev:18,pluswerk/node-dev:lts,pluswerk/node-dev:18"
           - node: 19
-            tags: "ghcr.io/pluswerk/node-dev,ghcr.io/pluswerk/node-dev:current,ghcr.io/pluswerk/node-dev:19"
+            tags: "ghcr.io/pluswerk/node-dev,ghcr.io/pluswerk/node-dev:current,ghcr.io/pluswerk/node-dev:19,pluswerk/node-dev,pluswerk/node-dev:current,pluswerk/node-dev:19"
     steps:
       -
         name: Set up QEMU
@@ -45,6 +45,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push ${{ matrix.node }}
         id: docker_build
