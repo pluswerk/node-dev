@@ -15,14 +15,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - node: 12
-            tags: "ghcr.io/pluswerk/node-dev:12,pluswerk/node-dev:12"
-          - node: 13
-            tags: "ghcr.io/pluswerk/node-dev:13,pluswerk/node-dev:13"
-          - node: 14
-            tags: "ghcr.io/pluswerk/node-dev:14,pluswerk/node-dev:14"
-          - node: 15
-            tags: "ghcr.io/pluswerk/node-dev:15,pluswerk/node-dev:15"
           - node: 16
             tags: "ghcr.io/pluswerk/node-dev:16,pluswerk/node-dev:16"
           - node: 17
@@ -30,7 +22,11 @@ jobs:
           - node: 18
             tags: "ghcr.io/pluswerk/node-dev:lts,ghcr.io/pluswerk/node-dev:18,pluswerk/node-dev:lts,pluswerk/node-dev:18"
           - node: 19
-            tags: "ghcr.io/pluswerk/node-dev,ghcr.io/pluswerk/node-dev:current,ghcr.io/pluswerk/node-dev:19,pluswerk/node-dev,pluswerk/node-dev:current,pluswerk/node-dev:19"
+            tags: "ghcr.io/pluswerk/node-dev:19,pluswerk/node-dev:19"
+          - node: 20
+            tags: "ghcr.io/pluswerk/node-dev:20,pluswerk/node-dev:20"
+          #- node: 21
+          #  tags: "ghcr.io/pluswerk/node-dev,ghcr.io/pluswerk/node-dev:current,ghcr.io/pluswerk/node-dev:21,pluswerk/node-dev,pluswerk/node-dev:current,pluswerk/node-dev:21"
     steps:
       -
         name: Set up QEMU
