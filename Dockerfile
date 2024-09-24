@@ -12,7 +12,7 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 COPY bin/* /usr/local/bin/
-COPY .additional_bashrc.sh .additional_bashrc_ps1.sh /home/node/.additional_bashrc.sh
+COPY .additional_bashrc.sh .additional_bashrc_ps1.sh /home/node/
 COPY .vimrc /home/node/.vimrc
 COPY .vimrc /home/root/.vimrc
 RUN echo "source ~/.additional_bashrc.sh" >> /home/node/.bashrc &&  \
