@@ -11,6 +11,7 @@ RUN apt-get update && \
   usermod -aG docker node && \
   rm -rf /var/lib/apt/lists/*
 
+COPY bin/* /usr/local/bin/
 COPY .additional_bashrc.sh .additional_bashrc_ps1.sh /home/node/.additional_bashrc.sh
 COPY .vimrc /home/node/.vimrc
 COPY .vimrc /home/root/.vimrc
