@@ -14,19 +14,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        node: [ 16, 17, 18, 19, 20, 21, 22 ]
+        distroAddon: [ '', '-alpine' ]
         include:
-          - node: 16
-            tags: "ghcr.io/pluswerk/node-dev:16,pluswerk/node-dev:16"
-          - node: 17
-            tags: "ghcr.io/pluswerk/node-dev:17,pluswerk/node-dev:17"
-          - node: 18
-            tags: "ghcr.io/pluswerk/node-dev:lts,ghcr.io/pluswerk/node-dev:18,pluswerk/node-dev:lts,pluswerk/node-dev:18"
-          - node: 19
-            tags: "ghcr.io/pluswerk/node-dev:19,pluswerk/node-dev:19"
           - node: 20
-            tags: "ghcr.io/pluswerk/node-dev:20,pluswerk/node-dev:20"
-          #- node: 21
-          #  tags: "ghcr.io/pluswerk/node-dev,ghcr.io/pluswerk/node-dev:current,ghcr.io/pluswerk/node-dev:21,pluswerk/node-dev,pluswerk/node-dev:current,pluswerk/node-dev:21"
+            distroAddon: ''
+            additionalTags: "ghcr.io/pluswerk/node-dev:lts,pluswerk/node-dev:lts,"
+          - node: 20
+            distroAddon: '-alpine'
+            additionalTags: "ghcr.io/pluswerk/node-dev:lts-alpine,pluswerk/node-dev:lts-alpine,"
+          - node: 22
+            distroAddon: ''
+            additionalTags: "ghcr.io/pluswerk/node-dev:latest,ghcr.io/pluswerk/node-dev:current,pluswerk/node-dev:latest,pluswerk/node-dev:current,"
+          - node: 22
+            distroAddon: '-alpine'
+            additionalTags: "ghcr.io/pluswerk/node-dev:latest-alpine,ghcr.io/pluswerk/node-dev:current-alpine,pluswerk/node-dev:latest-alpine,pluswerk/node-dev:current-alpine,"
     steps:
       -
         name: Set up QEMU
@@ -53,8 +55,10 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: ${{ github.ref == 'refs/heads/main' }}
-          tags: ${{ matrix.tags }}
-          build-args: FROM=node:${{ matrix.node }}
+          tags: ${{ matrix.additionalTags }}ghcr.io/pluswerk/node-dev:${{ matrix.node }}${{ matrix.distroAddon }},pluswerk/node-dev:${{ matrix.node }}${{ matrix.distroAddon }}
+          build-args: |
+            FROM=node:${{ matrix.node }}${{ matrix.distroAddon }}
+            DIST_ADDON=${{ matrix.distroAddon }}
           platforms: linux/amd64,linux/arm/v7,linux/arm64/v8
       -
         name: Image digest
