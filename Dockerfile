@@ -1,8 +1,13 @@
 ARG FROM=node:lts
-FROM $FROM
+ARG DIST_ADDON=-alpine
+FROM $FROM AS base-alpine
 
-ENV PATH=$PATH:./node_modules/.bin
+# Install additional software Alpine:
+RUN apk add --no-cache bash curl openssh-client-default sudo vim nano git-perl less tree bash-completion mariadb-client iputils sshpass gdb tzdata findmnt jq docker-cli file && \
+    echo "node ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
+
+FROM $FROM AS base
 RUN apt-get update && \
   apt-get install -y sudo vim nano less tree bash-completion mariadb-client iputils-ping sshpass gdb jq && \
   usermod -aG sudo node && \
@@ -10,6 +15,10 @@ RUN apt-get update && \
   curl -fsSL https://get.docker.com/ | sh && \
   usermod -aG docker node && \
   rm -rf /var/lib/apt/lists/*
+
+FROM base${DIST_ADDON}
+
+ENV PATH=$PATH:./node_modules/.bin
 
 COPY bin/* /usr/local/bin/
 COPY .additional_bashrc.sh .additional_bashrc_ps1.sh /home/node/
