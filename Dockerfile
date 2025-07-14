@@ -3,13 +3,13 @@ ARG DIST_ADDON=-alpine
 FROM $FROM AS base-alpine
 
 # Install additional software Alpine:
-RUN apk add --no-cache bash curl openssh-client-default sudo vim nano git-perl less tree bash-completion mariadb-client iputils sshpass gdb tzdata findmnt jq docker-cli file && \
+RUN apk add --no-cache bash curl openssh-client-default sudo vim nano git-perl git-lfs less tree bash-completion mariadb-client iputils sshpass gdb tzdata findmnt jq docker-cli file && \
     echo "node ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 
 FROM $FROM AS base
 RUN apt-get update && \
-  apt-get install -y sudo vim nano less tree bash-completion mariadb-client iputils-ping sshpass gdb jq && \
+  apt-get install -y sudo vim nano git-lfs less tree bash-completion mariadb-client iputils-ping sshpass gdb jq && \
   usermod -aG sudo node && \
   echo "node ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
   curl -fsSL https://get.docker.com/ | sh && \
