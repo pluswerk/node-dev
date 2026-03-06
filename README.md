@@ -4,7 +4,7 @@ NODE-DEV is a small package that adds some tools to ease the development inside 
 
 It is derived from [pluswerk/php-dev](https://github.com/pluswerk/php-dev/) and includes `git`, `ssh`, `vim`, `nano`, `ping`, `mysql`, `mysqldump`, and autocomplete for `git`
 
-It comes with versions for: `current`/`21`, `20`, `19`, `lts`/`18`, `17`, `16`, `15`, `14`, `13` and `12`.
+It comes with versions for: `current`/`25`, `lts`/`24`, `23`, `22`, `21`, `20`, `19`, `18`
 
 All images after `18` are also available as `alpine` versions. eg: `lts-alpine`, `current-alpine`, `20-alpine`
 
